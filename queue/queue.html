@@ -31,8 +31,10 @@
 </div>
 <script>
     window.onload = function () {
-        var num = document.getElementById('subnum');
+        var num = document.getElementById('subnum'); 
         var queue = document.getElementById('queue');
+        
+        //左侧入
         document.getElementById('leftin').onclick = function() {
             var span = document.createElement('span');
             span.innerHTML = parseInt(num.value);
@@ -41,11 +43,15 @@
             }else {
                 alert("请输入数字！");
             }
-            num.value = '';
+            num.value = '';  // 点击按钮后清空输入框
+            
+            //为每个新加入队列的数字添加一个点击删除的函数
             span.onclick = function () {
                 this.outerHTML = '';
             }
         }
+        
+        //右侧入
         document.getElementById('rightin').onclick = function () {
             var span = document.createElement('span');
             span.innerHTML = parseInt(num.value);
@@ -59,17 +65,15 @@
                 this.outerHTML = '';
             }
         }
+        
+        //左边删除
         document.getElementById('leftout').onclick = function () {
             queue.childNodes[0].outerHTML='';
         }
+        
+        //右边删除
         document.getElementById('rightout').onclick = function () {
             queue.childNodes[queue.childNodes.length-1].outerHTML='';
-        }
-        var allSpan = document.getElementsByTagName('span');
-        for (let i=0; i < allSpan.length; i++) {
-            allSpan[i].onclick = function () {
-                this.outerHTML = '';
-            }
         }
     }
 </script>
