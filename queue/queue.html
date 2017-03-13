@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>queue</title>
+    <style type="text/css" rel="stylesheet">
+        #queue span {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            float: left;
+            background: red;
+            color: white;
+            margin: 5px;
+            text-align: center;
+            line-height: 30px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="btncontainer">
+        <input type="text" id="subnum" placeholder="请输入数字！">
+        <button title="左侧入" class="btn" id="leftin" >左侧入</button>
+        <button title="右侧入" class="btn" id="rightin">右侧入</button>
+        <button title="左侧出" class="btn" id="leftout">左侧出</button>
+        <button title="右侧出" class="btn" id="rightout">右侧出</button>
+    </div>
+    <div id="queue">
+    </div>
+</div>
+<script>
+    window.onload = function () {
+        var num = document.getElementById('subnum');
+        var queue = document.getElementById('queue');
+        document.getElementById('leftin').onclick = function() {
+            var span = document.createElement('span');
+            span.innerHTML = parseInt(num.value);
+            if (!isNaN(span.innerHTML)) {
+                queue.insertBefore(span, queue.childNodes[0]);
+            }else {
+                alert("请输入数字！");
+            }
+            num.value = '';
+            span.onclick = function () {
+                this.outerHTML = '';
+            }
+        }
+        document.getElementById('rightin').onclick = function () {
+            var span = document.createElement('span');
+            span.innerHTML = parseInt(num.value);
+            if (!isNaN(span.innerHTML)) {
+                queue.appendChild(span);
+            }else {
+                alert("请输入数字！");
+            }
+            num.value = '';
+            span.onclick = function () {
+                this.outerHTML = '';
+            }
+        }
+        document.getElementById('leftout').onclick = function () {
+            queue.childNodes[0].outerHTML='';
+        }
+        document.getElementById('rightout').onclick = function () {
+            queue.childNodes[queue.childNodes.length-1].outerHTML='';
+        }
+        var allSpan = document.getElementsByTagName('span');
+        for (let i=0; i < allSpan.length; i++) {
+            allSpan[i].onclick = function () {
+                this.outerHTML = '';
+            }
+        }
+    }
+</script>
+</body>
+</html>
