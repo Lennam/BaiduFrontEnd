@@ -73,7 +73,8 @@
         
         //右边删除
         document.getElementById('rightout').onclick = function () {
-            queue.childNodes[queue.childNodes.length-1].outerHTML='';
+            //queue.childNodes[queue.childNodes.length-1].outerHTML='';
+            queue.removeChild(queue.lastChild);
         }
     }
 </script>
