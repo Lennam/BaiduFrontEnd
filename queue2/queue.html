@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>queue</title>
+    <style type="text/css" rel="stylesheet">
+        #queue{
+            vertical-align: bottom;
+        }
+        #queue span {
+            display: inline-block;
+            width: 20px;
+            background: red;
+            color: white;
+            margin: 1px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="btncontainer">
+        <input type="text" id="subnum" placeholder="请输入数字！">
+        <button title="左侧入" class="btn" id="leftin" >左侧入</button>
+        <button title="右侧入" class="btn" id="rightin">右侧入</button>
+        <button title="左侧出" class="btn" id="leftout">左侧出</button>
+        <button title="右侧出" class="btn" id="rightout">右侧出</button>
+        <button title="排序" class="btn" id="sort">排序</button>
+    </div>
+    <div id="queue">
+    </div>
+</div>
+<script>
+    window.onload = function () {
+        var num = document.getElementById('subnum');
+        var queue = document.getElementById('queue');
+        document.getElementById('leftin').onclick = function() {
+            var span = document.createElement('span');
+            span.style.height = parseInt(num.value) + 'px';
+            var yesNum = parseInt(num.value);
+            if (queue.childNodes.length >= 60) {
+                alert("已经达到添加上限！")
+            }else if (isNaN(yesNum)) {
+                alert("请输入数字!");
+            } else if (yesNum <10 || yesNum > 100){
+                alert("请输入10到100之间的数字！");
+            } else {
+                queue.insertBefore(span,queue.childNodes[0]);
+            }
+            num.value = '';
+            span.onclick = function () {
+                this.outerHTML = '';
+            }
+        }
+        document.getElementById('rightin').onclick = function () {
+            var span = document.createElement('span');
+            span.style.height = parseInt(num.value) + 'px';
+            var yesNum = parseInt(num.value);
+            if (queue.childNodes.length >= 60) {
+                alert("已经达到添加上限！")
+            }else if (isNaN(yesNum)) {
+                alert("请输入数字!");
+            } else if (yesNum < 10 || yesNum > 100){
+                alert("请输入10到100之间的数字！");
+            } else {
+                queue.appendChild(span);
+            }
+            num.value = '';
+            span.onclick = function () {
+                this.outerHTML = '';
+            }
+        }
+        document.getElementById('leftout').onclick = function () {
+            queue.childNodes[0].outerHTML='';
+        }
+        document.getElementById('rightout').onclick = function () {
+            //queue.childNodes[queue.childNodes.length-1].outerHTML='';
+            queue.removeChild(queue.lastChild);
+        }
+
+        //排序
+        document.getElementById('sort').onclick = function () {
+            var arr = [];
+            for (var i = 0; i < queue.childNodes.length; i++){
+                arr[i] = queue.childNodes[i].offsetHeight;
+            }
+            arr = arr.sort(function (a,b) {
+                return a - b;
+            })
+            for (var i = 0; i < queue.childNodes.length; i++) {
+                queue.childNodes[i].style.height = `${arr[i]}px`;
+            }
+        }
+    }
+</script>
+</body>
+</html>
